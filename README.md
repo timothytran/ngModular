@@ -93,3 +93,14 @@ Various grunt tasks that can be performed.
 ├── vendor
 └── index.html
 ```
+
+## TODO
+- Add JSCS to project
+- Add more sample AngularJS files
+- Add Sass directory structure
+- Add sample partials file
+- Add documentation on build process
+- Update demo page with better layout
+- Update all test cases to best practice format
+- Update code comments to use JSDoc format
+- Continue improving documentation

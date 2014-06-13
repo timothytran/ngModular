@@ -12,12 +12,13 @@ fi
 # Install Node.js
 if [ -f /usr/local/bin/node ]; then
     echo "Updating Node.js to the latest version"
-    sudo npm cache clean -f
-    sudo npm install -g n
-    sudo n latest
+    npm cache clean
+    npm install -g n
+    n latest
 else 
     echo "Installing Node.js..."
     brew install node
+    npm install -g n
 fi
 
 # Install Sass

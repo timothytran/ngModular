@@ -33,8 +33,8 @@ fi
 # Install Compass
 if [ -f /usr/bin/compass ]; then
     echo "Updating Compass to the latest version"
-    gem update compass
+    gem update compass --pre
 else 
     echo "Installing Compass.."
-    gem install compass
+    gem install compass --pre
 fi

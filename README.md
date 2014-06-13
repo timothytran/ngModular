@@ -8,7 +8,7 @@ ngModular is designed to provide a template for developing highly scalable Angul
 #### Setup Local Environment
 Install/update Homebrew, Node.js, Sass, and Compass. You probably need ```sudo``` access.
 
-   	sh setup.sh
+   	./setup.sh
    	
 #### Install global npms
 Install these npm globally. You probably need ```sudo``` access.

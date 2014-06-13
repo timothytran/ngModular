@@ -2,7 +2,7 @@
 A highly scalable and modular AngularJS boilerplate which emphasize on following best practices.
 
 ## Purpose
-ngModular is designed to provide a template for developing highly scalable AngularJS application.  It compe prepackaged with the most popular design frameworks:  RequireJS, SASS, Twitter Bootstrap, Unit Testing, jsHint, Grunt, Docker, etc..
+ngModular is designed to provide a template for developing highly scalable AngularJS application.  It come prepackaged with the most popular design frameworks:  RequireJS, SASS, Twitter Bootstrap, Unit Testing, jsHint, Grunt, Docker, etc..
 
 ## Quick Start
 #### Setup Local Environment
@@ -51,7 +51,7 @@ Various grunt tasks that can be performed.
 
 ### Resources
 - Javascript Coding Standard: <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml>
-- Angular Style Guild: <https://github.com/mgechev/angularjs-style-guide#controllers>
+- Angular Style Guide: <https://github.com/mgechev/angularjs-style-guide>
 - Unit Test Patterns: <https://github.com/daniellmb/angular-test-patterns>
 
 

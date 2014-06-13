@@ -6,11 +6,13 @@ ngModular is designed to provide a template for developing highly scalable Angul
 
 ## Quick Start
 #### Setup Local Environment
-Install/update Homebrew, Node.js, Sass, Compass.
+Install/update Homebrew, Node.js, Sass, and Compass. You probably need ```sudo``` access.
 
-   	sudo sh setup.sh
+   	sh setup.sh
    	
 #### Install global npms
+Install these npm globally. You probably need ```sudo``` access.
+
 	npm install -g grunt-cli
 	npm install -g bower
 	npm install -g karma
@@ -20,7 +22,7 @@ Install/update Homebrew, Node.js, Sass, Compass.
 Build project and start watcher.
 
 	npm install
-	browser install
+	bower install
 	grunt
 
 #### Setup localhost alias

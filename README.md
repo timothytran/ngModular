@@ -37,7 +37,7 @@ Various grunt tasks that can be performed.
 - ```grunt local```: Generate build for LOCAL environment.
 - ```grunt dev```: Generate build for DEV environment.
 - ```grunt prod```: Generate build for PROD environment deployment.
-- ```grunt refresh```: Refresh all npm and bower dependencies.
+- ```grunt update```: Git pull and update all npm and bower dependencies.
 - ```grunt docs```: Generate annotated documentations.
     
 	
@@ -50,8 +50,9 @@ Various grunt tasks that can be performed.
 - Unit Test Coverage: <http://localhost/test/coverage/>
 
 ### Resources
-- Javascript Coding Standard: <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml>
+- Angular Coding Standard: <https://google-styleguide.googlecode.com/svn/trunk/angularjs-google-style.html>
 - Angular Style Guide: <https://github.com/mgechev/angularjs-style-guide>
+- Angular Best Practices: <https://github.com/angular/angular.js/wiki/Best-Practices>
 - Unit Test Patterns: <https://github.com/daniellmb/angular-test-patterns>
 
 

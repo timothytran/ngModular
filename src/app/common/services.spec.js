@@ -1,20 +1,20 @@
 define(['common/services'], function() {
-	'use strict';
-	
-	return describe('Common service', function() {
-		var service;
+  'use strict';
 
-		beforeEach(module('myApp.services'));
-		beforeEach(inject(function($injector) {
-			service = $injector.get('commonService');
-		}));
+  return describe('Common service', function() {
+    var service;
 
-		it('common service name', function() {
-			return expect(service.serviceText).toEqual('text from common service');
-		});
+    beforeEach(module('myApp.services'));
+    beforeEach(inject(function($injector) {
+      service = $injector.get('commonService');
+    }));
 
-		it('common service context', function() {
-			return expect(service.count).toBe(5);
-		});
-	});
+    it('common service name', function() {
+      return expect(service.serviceText).toEqual('text from common service');
+    });
+
+    it('common service context', function() {
+      return expect(service.count).toBe(5);
+    });
+  });
 });

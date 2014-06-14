@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
+  'use strict';
 
-  /** 
+  /**
    * Load required Grunt tasks. These are installed based on the versions listed
    * in `package.json` when you do `npm install` in this directory.
    */
@@ -21,6 +22,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-docker');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-jscs-checker');
 
   /**
    * Load in our build configuration file.
@@ -36,7 +38,7 @@ module.exports = function(grunt) {
      * We read in our `package.json` file so we can access the package name and
      * version. It's already there, so we don't repeat ourselves here.
      */
-    pkg: grunt.file.readJSON("package.json"),
+    pkg: grunt.file.readJSON('package.json'),
 
     /**
      * Project banner
@@ -66,14 +68,14 @@ module.exports = function(grunt) {
     bump: {
       options: {
         files: [
-          "package.json",
-          "bower.json"
+          'package.json',
+          'bower.json'
         ],
         commit: true,
         commitMessage: 'chore(release): v%VERSION%',
         commitFiles: [
-          "package.json",
-          "bower.json"
+          'package.json',
+          'bower.json'
         ],
         createTag: false,
         tagName: 'v%VERSION%',
@@ -94,7 +96,7 @@ module.exports = function(grunt) {
         '<%= bin_dir %>'
       ],
       karma: ['<%= build_dir %>/test'],
-      refresh: ['node_modules', '<%= source_dir %>/vendor'],
+      update: ['node_modules', '<%= source_dir %>/vendor'],
       docs: ['<%= build_dir %>/docs'],
       site_js: ['site.js']
     },
@@ -223,12 +225,41 @@ module.exports = function(grunt) {
       ],
       options: {
         curly: true,
+        eqeqeq: true,
+        indent: 2,
+        quotmark: 'single',
+        strict: true,
+        trailing: true,
         immed: true,
         newcap: true,
         noarg: true,
         sub: true,
         boss: true,
-        eqnull: true
+        eqnull: true,
+      }
+    },
+
+    /**
+     * Javascript code style checker
+     */
+    jscs: {
+      src: {
+        src: '<%= source_files.js %>',
+        options: {
+          config: '.jscsrc',
+        }
+      },
+      test: {
+        src: '<%= source_files.jsunit %>',
+        options: {
+          config: '.jscsrc',
+        }
+      },
+      gruntfile: {
+        src: 'Gruntfile.js',
+        options: {
+          config: '.jscsrc',
+        }
       }
     },
 
@@ -267,10 +298,10 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          mainConfigFile: "<%= build_dir %>/app/main.js",
-          optimize: "uglify2",
-          name: "main",
-          out: "<%= build_dir %>/app/main.js",
+          mainConfigFile: '<%= build_dir %>/app/main.js',
+          optimize: 'uglify2',
+          name: 'main',
+          out: '<%= build_dir %>/app/main.js',
           preserveLicenseComments: false,
           findNestedDependencies: true,
           generateSourceMaps: true,
@@ -372,7 +403,7 @@ module.exports = function(grunt) {
      */
     protractor: {
       options: {
-        configFile: "node_modules/protractor/referenceConf.js", // Default config file
+        configFile: 'node_modules/protractor/referenceConf.js', // Default config file
         keepAlive: true, // If false, the grunt process stops when the test fails.
         noColor: false, // If true, protractor will not use colors in its output.
         args: {
@@ -381,7 +412,7 @@ module.exports = function(grunt) {
       },
       your_target: {
         options: {
-          configFile: "<%= test_dir %>/protractor-conf.js", // Target-specific config file
+          configFile: '<%= test_dir %>/protractor-conf.js', // Target-specific config file
           args: {} // Target-specific arguments
         }
       },
@@ -391,8 +422,8 @@ module.exports = function(grunt) {
      * shell commands
      */
     exec: {
-      refresh: {
-        cmd: 'npm install; bower install',
+      update: {
+        cmd: 'git pull; npm install; bower install',
         stdout: true,
         stderr: false
       }
@@ -429,14 +460,14 @@ module.exports = function(grunt) {
     /**
      * And for rapid development, we have a watch set up that checks to see if
      * any of the files listed below change, and then to execute the listed
-     * tasks when they do. This just saves us from having to type "grunt" into
+     * tasks when they do. This just saves us from having to type 'grunt' into
      * the command-line every time we want to see what we're working on; we can
-     * instead just leave "grunt watch" running in a background terminal. Set it
+     * instead just leave 'grunt watch' running in a background terminal. Set it
      * and forget it, as Ron Popeil used to tell us.
      *
      * But we don't need the same thing to happen for all the files.
      */
-    delta: {
+    watch: {
       /**
        * By default, we want the Live Reload to work for all tasks; this is
        * overridden in some tasks (like this file) where browser resources are
@@ -453,7 +484,7 @@ module.exports = function(grunt) {
        */
       gruntfile: {
         files: 'Gruntfile.js',
-        tasks: ['jshint:gruntfile'],
+        tasks: ['jshint:gruntfile', 'newer:jscs:gruntfile'],
         options: {
           reload: true,
           livereload: false
@@ -474,7 +505,7 @@ module.exports = function(grunt) {
        */
       jssrc: {
         files: '<%= source_files.js %>',
-        tasks: ['newer:jshint:src', 'newer:copy:js', 'karma:watch']
+        tasks: ['newer:jshint:src', 'newer:jscs:src', 'newer:copy:js', 'karma:watch']
       },
 
       /**
@@ -485,7 +516,7 @@ module.exports = function(grunt) {
         files: [
           '<%= source_files.jsunit %>'
         ],
-        tasks: ['newer:jshint:test', 'karma:watch'],
+        tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma:watch'],
         options: {
           livereload: false
         }
@@ -533,31 +564,20 @@ module.exports = function(grunt) {
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
   /**
-   * In order to make it safe to just compile or copy *only* what was changed,
-   * we need to ensure we are starting from a clean, fresh build. So we rename
-   * the `watch` task to `delta` (that's why the configuration var above is
-   * `delta`) and then add a new task called `watch` that does a clean build
-   * before watching for changes.
-   */
-  grunt.renameTask('watch', 'delta');
-  grunt.registerTask('watch', ['delta']);
-
-  /**
    * Project grunt tasks.
    */
   grunt.registerTask('test', ['karma:unit', 'clean:karma', 'copy:karma', 'rename:karma']);
   grunt.registerTask('docs', ['clean:docs', 'concat', 'docker', 'clean:site_js']);
-  grunt.registerTask('refresh', ['clean:refresh', 'exec:refresh', 'build']);
+  grunt.registerTask('update', ['exec:update', 'build']);
 
   /**
    * Build grunt tasks.
    */
-  grunt.registerTask('build', ['jshint', 'clean:build', 'copy:local', 'sass:local', 'preprocess:local', 'test', 'docs']);
-  grunt.registerTask('build-dev', ['jshint', 'clean:build', 'copy:dev', 'ngtemplates', 'requirejs', 'rename:dev']);
+  grunt.registerTask('build', ['jshint', 'jscs', 'clean:build', 'copy:local', 'sass:local', 'preprocess:local', 'test', 'docs']);
+  grunt.registerTask('build-dev', ['jshint', 'jscs', 'clean:build', 'copy:dev', 'ngtemplates', 'requirejs', 'rename:dev']);
   grunt.registerTask('local', ['build']);
   grunt.registerTask('dev', ['build-dev', 'test', 'sass:dev', 'preprocess:dev', 'docs']);
   grunt.registerTask('prod', ['build-dev', 'karma:unit', 'sass:prod', 'preprocess:prod', 'clean:bin', 'copy:prod', 'clean:build', 'rename:prod']);
-
 
   /**
    * The default task is to build and watch.

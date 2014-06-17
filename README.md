@@ -23,7 +23,8 @@ Build project and start watcher.
 
 	npm install
 	bower install
-	grunt
+	grunt build
+	grunt watch
 
 #### Setup localhost alias
 Point your localhost to the project ```build/``` directory.
@@ -44,7 +45,7 @@ Various grunt tasks that can be performed.
 ## General
 ### Annotated Documentations
 - Gruntfile: <http://localhost/docs/Gruntfile.js.html>
-- Site javascript: <http://localhost/docs/site.js.html>
+- App: <http://localhost/docs/app.js.html>
 
 ### Testing
 - Unit Test Coverage: <http://localhost/test/coverage/>

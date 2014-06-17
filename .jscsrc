@@ -22,10 +22,10 @@
         "checkParamNames": true,
         "requireParamTypes": true
     },
+    "validateQuoteMarks": "'",
     "validateIndentation": 2
 
     /*
     "requireLineFeedAtFileEnd": true,
-    "validateQuoteMarks": "'"
     */
 }

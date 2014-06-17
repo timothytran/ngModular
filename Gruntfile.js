@@ -11,7 +11,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
@@ -42,6 +41,7 @@ module.exports = function(grunt) {
 
     /**
      * Project banner
+     * Add meta data to our minified CSS and JS
      */
     tag: {
       banner: '/*!\n' +
@@ -50,16 +50,6 @@ module.exports = function(grunt) {
         ' * @author <%= pkg.author %>\n' +
         ' * @version <%= pkg.version %>\n' +
         ' */\n'
-    },
-
-    /**
-     * Creates a changelog on a new version.
-     */
-    changelog: {
-      options: {
-        dest: 'CHANGELOG.md',
-        template: 'changelog.tpl'
-      }
     },
 
     /**
@@ -98,7 +88,7 @@ module.exports = function(grunt) {
       karma: ['<%= build_dir %>/test'],
       update: ['node_modules', '<%= source_dir %>/vendor'],
       docs: ['<%= build_dir %>/docs'],
-      site_js: ['site.js']
+      site_js: ['app.js']
     },
 
     /**
@@ -138,7 +128,7 @@ module.exports = function(grunt) {
           cwd: '<%= build_dir %>',
           expand: true
         }, {
-          src: ['app/main.min.js'],
+          src: ['app/<%= pkg.name %>.<%= grunt.config("git-commit") %>.js'],
           dest: '<%= bin_dir %>/js',
           cwd: '<%= build_dir %>',
           expand: true,
@@ -188,8 +178,8 @@ module.exports = function(grunt) {
           compass: true
         },
         files: {
-          '<%= build_dir %>/css/lib.min.css': '<%= source_dir %>/<%= app_files.sass_lib %>',
-          '<%= build_dir %>/css/style.min.css': '<%= source_dir %>/<%= app_files.sass_style %>'
+          '<%= build_dir %>/css/lib.<%= grunt.config("git-commit") %>.css': '<%= source_dir %>/<%= app_files.sass_lib %>',
+          '<%= build_dir %>/css/style.<%= grunt.config("git-commit") %>.css': '<%= source_dir %>/<%= app_files.sass_style %>'
         }
       },
       prod: {
@@ -199,8 +189,8 @@ module.exports = function(grunt) {
           compass: true
         },
         files: {
-          '<%= build_dir %>/css/lib.min.css': '<%= source_dir %>/<%= app_files.sass_lib %>',
-          '<%= build_dir %>/css/style.min.css': '<%= source_dir %>/<%= app_files.sass_style %>'
+          '<%= build_dir %>/css/lib.<%= grunt.config("git-commit") %>.css': '<%= source_dir %>/<%= app_files.sass_lib %>',
+          '<%= build_dir %>/css/style.<%= grunt.config("git-commit") %>.css': '<%= source_dir %>/<%= app_files.sass_style %>'
         }
       }
     },
@@ -301,7 +291,7 @@ module.exports = function(grunt) {
           mainConfigFile: '<%= build_dir %>/app/main.js',
           optimize: 'uglify2',
           name: 'main',
-          out: '<%= build_dir %>/app/main.js',
+          out: '<%= build_dir %>/app/<%= pkg.name %>.<%= grunt.config("git-commit") %>.js',
           preserveLicenseComments: false,
           findNestedDependencies: true,
           generateSourceMaps: true,
@@ -322,6 +312,8 @@ module.exports = function(grunt) {
         options: {
           context: {
             javascript: '<script data-main="app/main" src="vendor/requirejs/require.js"></script>',
+            styleLib: '<link rel="stylesheet" type="text/css" media="all" href="css/lib.min.css" />',
+            styleMain: '<link rel="stylesheet" type="text/css" media="all" href="css/style.min.css" />'
           }
         }
       },
@@ -330,7 +322,9 @@ module.exports = function(grunt) {
         dest: '<%= build_dir %>/index.html',
         options: {
           context: {
-            javascript: '<script data-main="app/main.min" src="vendor/requirejs/require.js"></script>',
+            javascript: '<script data-main="app/<%= pkg.name %>.<%= grunt.config("git-commit") %>.js" src="vendor/requirejs/require.js"></script>',
+            styleLib: '<link rel="stylesheet" type="text/css" media="all" href="css/lib.<%= grunt.config("git-commit") %>.css" />',
+            styleMain: '<link rel="stylesheet" type="text/css" media="all" href="css/style.<%= grunt.config("git-commit") %>.css" />'
           }
         }
       },
@@ -339,7 +333,9 @@ module.exports = function(grunt) {
         dest: '<%= build_dir %>/index.html',
         options: {
           context: {
-            javascript: '<script src="js/main.min.js"></script>',
+            javascript: '<script src="js/<%= pkg.name %>.<%= grunt.config("git-commit") %>.js"></script>',
+            styleLib: '<link rel="stylesheet" type="text/css" media="all" href="css/lib.<%= grunt.config("git-commit") %>.css" />',
+            styleMain: '<link rel="stylesheet" type="text/css" media="all" href="css/style.<%= grunt.config("git-commit") %>.css" />'
           }
         }
       }
@@ -349,12 +345,6 @@ module.exports = function(grunt) {
      * Rename directories when `grunt rename` is executed.
      */
     rename: {
-      dev: {
-        files: [{
-          src: '<%= build_dir %>/app/main.js',
-          dest: '<%= build_dir %>/app/main.min.js'
-        }]
-      },
       prod: {
         files: [{
           src: '<%= bin_dir %>',
@@ -435,7 +425,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: ['src/app/**/*.js'],
-        dest: 'site.js',
+        dest: 'app.js',
       }
     },
 
@@ -444,7 +434,7 @@ module.exports = function(grunt) {
      */
     docker: {
       app: {
-        src: ['Gruntfile.js', 'site.js'],
+        src: ['Gruntfile.js', 'app.js'],
         dest: '<%= build_dir %>/docs/',
       },
       options: {
@@ -561,6 +551,23 @@ module.exports = function(grunt) {
     }
   });
 
+  /**
+   * This task creates a Grunt config variable called `git-commit` that contains the latest git commit sha1 hash.
+   */
+  grunt.registerTask('githash', 'grabs the latest git commit hash', function() {
+    var config, done;
+    done = this.async();
+    config = {
+      cmd: 'git',
+      args: ['rev-parse', '--verify', 'HEAD']
+    };
+    return grunt.util.spawn(config, function(err, result) {
+      grunt.config('git-commit', result.stdout);
+      grunt.log.ok('Setting `git-commit` to ' + result.stdout);
+      return done();
+    });
+  });
+
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
   /**
@@ -569,12 +576,13 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['karma:unit', 'clean:karma', 'copy:karma', 'rename:karma']);
   grunt.registerTask('docs', ['clean:docs', 'concat', 'docker', 'clean:site_js']);
   grunt.registerTask('update', ['exec:update', 'build']);
+  grunt.registerTask('lint', ['jshint', 'jscs']);
 
   /**
    * Build grunt tasks.
    */
   grunt.registerTask('build', ['jshint', 'jscs', 'clean:build', 'copy:local', 'sass:local', 'preprocess:local', 'test', 'docs']);
-  grunt.registerTask('build-dev', ['jshint', 'jscs', 'clean:build', 'copy:dev', 'ngtemplates', 'requirejs', 'rename:dev']);
+  grunt.registerTask('build-dev', ['jshint', 'jscs', 'clean:build', 'copy:dev', 'ngtemplates', 'githash', 'requirejs']);
   grunt.registerTask('local', ['build']);
   grunt.registerTask('dev', ['build-dev', 'test', 'sass:dev', 'preprocess:dev', 'docs']);
   grunt.registerTask('prod', ['build-dev', 'karma:unit', 'sass:prod', 'preprocess:prod', 'clean:bin', 'copy:prod', 'clean:build', 'rename:prod']);

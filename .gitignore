@@ -3,3 +3,5 @@
 /build/
 /src/vendor/
 /test/report/
+
+.DS_Store

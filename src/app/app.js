@@ -12,7 +12,7 @@ define([
   // Declare app level module which depends on filters, and services
   return angular.module(config.ngApp, [
     'ui.router',
-    'myApp.services',
+    'myApp.services'
     'myApp.filters',
     'myApp.directives',
     'myApp.home'

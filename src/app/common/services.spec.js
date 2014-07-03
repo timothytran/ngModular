@@ -16,5 +16,9 @@ define(['common/services'], function() {
     it('common service context', function() {
       return expect(service.count).toBe(5);
     });
+
+    it(' | Jenkins Build Test', function() {
+      return expect(service.jenkinsVar.toEqual(true));
+    });
   });
 });

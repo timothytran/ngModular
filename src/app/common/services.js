@@ -5,7 +5,8 @@ define(['angular'], function(angular) {
     .factory('commonService', function() {
       var pub = {
         serviceText: 'text from common service',
-        count: 5
+        count: 5,
+        jenkinsVar: true
       };
 
       return pub;

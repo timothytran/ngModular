@@ -21,6 +21,11 @@ module.exports = function(config) {
 		exclude: ['src/app/main.js'],
 		frameworks: ['jasmine', 'requirejs'],
 		color: true,
-		logLevel: config.LOG_INFO
+		logLevel: config.LOG_INFO,
+        singleRun: true,
+        reporters: ['dots', 'junit'],
+        junitReporter: {
+           outputFile: 'test-results.xml' 
+        }
 	});
 };

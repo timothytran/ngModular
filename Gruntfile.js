@@ -380,6 +380,9 @@ module.exports = function(grunt) {
             type: 'html'
           }, {
             type: 'text-summary'
+          },{
+            // For Jenkins Reports
+            type: 'cobertura'
           }]
         },
         junitReporter: {

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="PhantomJS 1.9.7 (Mac OS X)" package="" timestamp="2014-07-18T15:10:26" id="0" hostname="Jasons-MacBook-Pro.local" tests="14" errors="0" failures="1" time="0.023">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
+    </properties>
+    <testcase name="should make element color red" time="0.008" classname="PhantomJS 1.9.7 (Mac OS X).common directives redText"/>
+    <testcase name="common service name" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Common service"/>
+    <testcase name="common service context" time="0" classname="PhantomJS 1.9.7 (Mac OS X).Common service"/>
+    <testcase name="| Jenkins Build Test" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Common service"/>
+    <testcase name="should titlecase a string" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Common filters"/>
+    <testcase name="should titlecase an empty string" time="0" classname="PhantomJS 1.9.7 (Mac OS X).Common filters"/>
+    <testcase name="should camel case a set of words" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Common filters">
+      <failure type="">Expected &apos;This could be used to tokenize phrases&apos; to equal &apos;thisCouldBeUsedToTokenizePhrases&apos;.
+</failure>
+    </testcase>
+    <testcase name="HomeCtrl should exist" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).HomeCtrl"/>
+    <testcase name="name should equal" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).HomeCtrl"/>
+    <testcase name="context should equal" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).HomeCtrl"/>
+    <testcase name="Home controller should exist" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Home module"/>
+    <testcase name="should make element text underline" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).homeDirective"/>
+    <testcase name="should camelcase a string" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Home Filter"/>
+    <testcase name="should camelcase a string" time="0.004" classname="PhantomJS 1.9.7 (Mac OS X).Home Filter"/>
+    <system-out><![CDATA[PhantomJS 1.9.7 (Mac OS X) LOG: true
+
+]]></system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

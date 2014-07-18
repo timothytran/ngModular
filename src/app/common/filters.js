@@ -16,5 +16,22 @@ define(['angular'], function(angular) {
           return input;
         }
       };
+    })
+    .filter('camelcase', function() {
+        return function(input) {
+            // if (input) {
+            //     var words = input.split(' ');
+            //     for (var i = 0; i < words.length; i++) {
+            //         if(i === 0) {
+            //             words[i] = words[i].toLowerCase();
+            //         } else {
+            //             words[i] = words[i].charAt(0).toUpperCase();
+            //         }
+            //     }
+            //     return words.join('');
+            // } else {
+                return input;
+            // }
+        };
     });
 });

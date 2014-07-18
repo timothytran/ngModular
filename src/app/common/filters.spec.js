@@ -20,12 +20,19 @@ define(['common/filters'], function() {
       expect(result).toEqual('Hello World');
     });
 
-    it('should titlecase a string', function() {
+    it('should titlecase an empty string', function() {
       var string = '',
         result;
 
       result = $filter('titlecase')(string, 'titlecase');
       expect(result).toEqual('');
+    });
+
+    it('should camel case a set of words', function() {
+      var phrase = 'This could be used to tokenize phrases',
+          result;
+      result = $filter('camelcase')(phrase, 'camelcase');
+      expect(result).toEqual('thisCouldBeUsedToTokenizePhrases');
     });
   });
 });

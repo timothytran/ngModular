@@ -1,16 +1,16 @@
 define([], function() {
-  'use strict';
+    'use strict';
 
-  // Underline text
-  var homeDirective = function() {
-    return {
-      link: function($scope, $element) {
-        $element.css({
-          textDecoration: 'underline'
-        });
-      }
+    // Underline text
+    var homeDirective = function() {
+        return {
+            link: function($scope, $element) {
+                $element.css({
+                    textDecoration: 'underline'
+                });
+            }
+        };
     };
-  };
 
-  return homeDirective;
+    return homeDirective;
 });

@@ -1,8 +1,8 @@
 define([], function() {
-  'use strict';
+    'use strict';
 
-  // Application configs
-  return {
-    ngApp: 'myApp'
-  };
+    // Application configs
+    return {
+        ngApp: 'myApp'
+    };
 });

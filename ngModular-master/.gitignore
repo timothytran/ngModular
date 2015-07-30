@@ -1,0 +1,7 @@
+/node_modules/
+/.sass-cache/
+/build/
+/src/vendor/
+/test/report/
+
+.DS_Store

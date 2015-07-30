@@ -1,15 +1,28 @@
 {
-  "name": "ngModular",
-  "version": "0.1.0",
-  "devDependencies": {
-    "angular": "~1.2.x",
-    "angular-scenario": "~1.2.x",
-    "angular-route": "~1.2.x",
-    "angular-mocks": "~1.2.x",
-    "angular-ui-router": "~0.2.x",
-    "requirejs": "~2.1.x",
-    "requirejs-text": "~2.0.x",
-    "bootstrap-sass-twbs": "~3.1.x",
-    "jquery": "~2.1.x"
-  }
+    "name": "ngModular",
+    "author": "Timothy Tran",
+    "version": "1.0.0",
+    "description": "A highly scalable and modular AngularJS boilerplate which emphasize on following best practices.",
+    "readmeFilename": "README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/timothytran/ngModular"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "angular": "1.4.x",
+        "angular-animate": "1.4.x",
+        "angular-mocks": "1.4.x",
+        "angular-sanitize": "1.4.x",
+        "angular-scenario": "1.4.x",
+        "angular-ui-router": "0.2.x",
+        "bootstrap-sass-twbs": "3.3.x",
+        "jquery": "2.1.x",
+        "lodash": "2.4.x",
+        "requirejs": "2.1.x",
+        "requirejs-text": "2.0.x"
+    },
+    "resolutions": {
+        "angular": "1.4.x"
+    }
 }

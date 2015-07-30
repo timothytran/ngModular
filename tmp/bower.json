@@ -1,0 +1,36 @@
+{
+    "name": "wall-e",
+    "version": "1.0.0",
+    "devDependencies": {
+        "angular": "1.4.x",
+        "angular-animate": "1.4.x",
+        "angular-bootstrap": "0.13.x",
+        "angular-bootstrap-switch": "0.4.x",
+        "angular-cookie": "4.0.x",
+        "angular-local-storage": "0.1.x",
+        "angular-mocks": "1.4.x",
+        "angular-sanitize": "1.4.x",
+        "angular-scenario": "1.4.x",
+        "angular-translate": "2.7.x",
+        "angular-ui-router": "0.2.x",
+        "angular-ui-utils": "0.2.x",
+        "animate.css": "3.3.x",
+        "bootstrap-sass-twbs": "3.3.x",
+        "d3": "3.5.x",
+        "jquery": "2.1.x",
+        "jquery.shapeshift": "https://github.com/timothytran/jquery.shapeshift.git#2.0.9",
+        "jquery-ui": "1.11.x",
+        "jquery-ui-touch-punch": "https://github.com/timothytran/jquery-ui-touch-punch.git",
+        "lodash": "2.4.x",
+        "moment": "2.10.x",
+        "ngInfiniteScroll": "1.2.x",
+        "ngstorage": "0.3.x",
+        "nouislider": "7.0.1",
+        "requirejs": "2.1.x",
+        "requirejs-text": "2.0.x",
+        "selectize": "0.12.x"
+    },
+    "resolutions": {
+        "angular": "1.4.x"
+    }
+}

@@ -1,4 +1,4 @@
-# Wall-E (Digital Life)
+# ngModular
 
 ## Quick Start
 
